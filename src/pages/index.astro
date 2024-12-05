@@ -19,9 +19,9 @@ const projects = (await getCollection("projects"))
 
 const stack = [
   { 
-    text: "Flutter", 
-    icon: "flutter", 
-    href: "https://flutter.dev" 
+    text: "Astro", 
+    icon: "astro", 
+    href: "https://astro.build" 
   },
   { 
     text: "JavaScript", 
@@ -34,6 +34,11 @@ const stack = [
     href: "https://www.typescriptlang.org" 
   },
   { 
+    text: "Flutter", 
+    icon: "flutter", 
+    href: "https://flutter.dev" 
+  },
+  { 
     text: "Node.js", 
     icon: "nodejs", 
     href: "https://nodejs.org" 
@@ -42,6 +47,11 @@ const stack = [
     text: "PostgreSQL", 
     icon: "postgresql", 
     href: "https://www.postgresql.org" 
+  },
+  { 
+    text: "Tailwind CSS", 
+    icon: "tailwind", 
+    href: "https://tailwindcss.com" 
   },
 ]
 ---
@@ -62,7 +72,7 @@ const stack = [
     <div id='stars3' class='fixed inset-0'></div>
   </div>
 
-  <!-- Dark Theme: Twinkling Stars / Meteors -->
+  <!-- Dark Theme: Twinkling Stars / Metors -->
   <div id="galaxy" class="fixed inset-0">
     <div class="hidden dark:block">
       <TwinklingStars/>
@@ -91,7 +101,7 @@ const stack = [
             Ishan Neupane
           </p>
           <p class='animated text-sm md:text-base lg:text-lg opacity-75'>
-            Flutter Developer | Full-Stack Engineer | Mentor
+            A Computer Engineer and Developer passionate about creating impactful applications.
           </p>
           <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-5'>
             <a href='/blog' class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
@@ -112,10 +122,9 @@ const stack = [
       <!-- About Section -->
       <section class="animate">
         <article>
-          <p>I am a <b><i>full-stack developer</i></b>, <b><i>mentor</i></b>, and <b><i>problem-solver</i></b> based in Suryabinayak, Bhaktapur.</p>
-          <p>I specialize in creating dynamic, user-focused applications using Flutter, Node.js, and PostgreSQL. I enjoy tackling challenges, whether it’s optimizing performance, ensuring seamless user experience, or integrating innovative features like charts and animations.</p>
-          <p>Currently</p>
-          <p>I’m honing my skills in Node.js while building a warehouse management system and exploring the latest trends in full-stack development. I thrive in collaborative environments where creativity and growth are valued.</p>
+          <p>I am a <b><i>Flutter Developer</i></b>, <b><i>Node.js Enthusiast</i></b>, and <b><i>Database Specialist</i></b>. Currently, I am honing my skills in TypeScript and PostgreSQL, while exploring animations and dynamic UI designs in my projects.</p>
+          <p>My passion lies in crafting clean, efficient code and delivering user-focused applications. Whether it's a warehouse management system or an innovative mobile app, I love taking on challenges and transforming ideas into reality.</p>
+          <p>I thrive in collaborative environments, constantly seeking opportunities to grow and contribute to impactful projects.</p>
         </article>
       </section>
 
@@ -146,7 +155,7 @@ const stack = [
       <section class="animate">
         <div class="space-y-4">
           <p class="font-semibold text-black dark:text-white">
-            Built with
+            Website built with
           </p>
           <div class="flex flex-wrap items-center gap-2 mt-5">
             {stack.map(item => (
@@ -160,29 +169,6 @@ const stack = [
         </div>
       </section>
 
-      <!-- Project Preview Section -->
-      <section class="animate">
-        <div class="space-y-4">
-          <div class="flex justify-between">
-            <p class="font-semibold text-black dark:text-white">
-              Recent projects
-            </p>
-            <a href="/projects" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                All projects
-              </span>
-            </a>
-          </div>
-          <ul class="space-y-4">
-            {projects.map((project) => (
-              <li>
-                <ArrowCard entry={project} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       <!-- Contact Section -->
       <section class="animate">
         <div>
@@ -190,17 +176,10 @@ const stack = [
             Let's Connect
           </p>
           <p>
-            Email me at <a href="mailto:ishannneupane8945@gmail.com">ishannneupane8945@gmail.com</a> or find me on social media:
+            Reach out to me via email at **ishannneupane8945@gmail.com** or connect with me on social media.
           </p>
-          <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
-            {SOCIALS.map(social => (
-              <div class="col-span-1 flex items-center gap-1">
-                <span class="whitespace-nowrap truncate">
-                  {social.NAME}
-                </span>
-              </div>
-              <div class="col-span-3 truncate">
-                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-                  <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                    ishannneupane8845 >>
-                  </span>
+        </div>
+      </section>
+    </div>
+  </div>
+</PageLayout>
