@@ -1,7 +1,8 @@
 ---
 title: "To Our Dearest Prasi"
 summary: "May You Be Chosen as a Best Bitch in Hell"
-date: "Sept 13 2005 - Infinity"
+date: 2005-09-13
+until: "Infinity"
 draft: false
 tags:
   - Astro
