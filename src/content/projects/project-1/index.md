@@ -1,7 +1,7 @@
 ---
-title: "To Our Dearest"
-summary: "May"
-date: "Mar 18 2022"
+title: "To Our Dearest Prasi"
+summary: "May You Be Chosen as a Best Bitch in Hell"
+date: "Sept 13 2005 - Infinity"
 draft: false
 tags:
   - Astro
@@ -13,10 +13,11 @@ demoUrl: https://astro-sphere-demo.vercel.app
 repoUrl: https://github.com/markhorn-dev/astro-sphere
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum.
 
 ![Dearest Image](/image/del.jpg)
 
-Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis.
+I am truly heartbroken to hear about your loss. There are no words that can ease the pain you must be feeling right now, but please know that you and your family are in my thoughts during this incredibly difficult time.
 
-Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+I hope you find strength in the love and support of those around you, and comfort in the memories you shared. Please take all the time you need to grieve and heal.
+
+If there is anything at all I can do for you, no matter how small, please don’t hesitate to reach out. I’m here for you.
