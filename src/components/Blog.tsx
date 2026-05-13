@@ -1,72 +1,160 @@
 import type { CollectionEntry } from "astro:content"
-import { createEffect, createSignal, For } from "solid-js"
-import ArrowCard from "@components/ArrowCard"
-import { cn } from "@lib/utils"
+import { createSignal, For, Show } from "solid-js"
 
 type Props = {
   tags: string[]
   data: CollectionEntry<"blog">[]
 }
 
-export default function Blog({ data, tags }: Props) {
-  const [filter, setFilter] = createSignal(new Set<string>())
-  const [posts, setPosts] = createSignal<CollectionEntry<"blog">[]>([])
+export default function Blog(props: Props) {
+  const [playerName, setPlayerName] = createSignal("")
+  const [players, setPlayers] = createSignal<string[]>([])
 
-  createEffect(() => {
-    setPosts(data.filter((entry) => 
-      Array.from(filter()).every((value) => 
-        entry.data.tags.some((tag:string) => 
-          tag.toLowerCase() === String(value).toLowerCase()
-        )
-      )
-    ))
-  })
+  const [teamA, setTeamA] = createSignal<string[]>([])
+  const [teamB, setTeamB] = createSignal<string[]>([])
+  const [umpire, setUmpire] = createSignal<string | null>(null)
 
-  function toggleTag(tag: string) {
-    setFilter((prev) => 
-      new Set(prev.has(tag) 
-        ? [...prev].filter((t) => t !== tag) 
-        : [...prev, tag]
-      )
-    )
+  const [tossResult, setTossResult] = createSignal("")
+  const [isTossing, setIsTossing] = createSignal(false)
+
+const [error, setError] = createSignal("")
+
+const addPlayer = () => {
+  const trimmedName = playerName().trim()
+
+  if (!trimmedName) return
+
+  const alreadyExists = players().some(
+    (player) => player.toLowerCase() === trimmedName.toLowerCase()
+  )
+
+  if (alreadyExists) {
+    setError("Player already added")
+    return
+  }
+
+  setError("")
+  setTossResult("")
+
+  setPlayers([...players(), trimmedName])
+  setPlayerName("")
+}
+const generateTeams = () => {
+  setTossResult("") // clear toss result
+
+  const shuffled = [...players()].sort(() => Math.random() - 0.5)
+
+  let umpirePlayer: string | null = null
+
+  if (shuffled.length % 2 !== 0) {
+    umpirePlayer = shuffled.pop() || null
+  }
+
+  const middle = shuffled.length / 2
+
+  setTeamA(shuffled.slice(0, middle))
+  setTeamB(shuffled.slice(middle))
+  setUmpire(umpirePlayer)
+}
+
+  const tossCoin = () => {
+    setIsTossing(true)
+    setTossResult("Tossing...")
+
+    setTimeout(() => {
+      const result = Math.random() > 0.5 ? "Heads" : "Tails"
+
+      setTossResult(result)
+      setIsTossing(false)
+    }, 1000)
   }
 
   return (
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <div class="col-span-3 sm:col-span-1">
-        <div class="sticky top-24">
-          <div class="text-sm font-semibold uppercase mb-2 text-black dark:text-white">Filter</div>
-          <ul class="flex flex-wrap sm:flex-col gap-1.5">
-            <For each={tags}>
-              {(tag) => (
-                <li>
-                  <button onClick={() => toggleTag(tag)} class={cn("w-full px-2 py-1 rounded", "whitespace-nowrap overflow-hidden overflow-ellipsis", "flex gap-2 items-center", "bg-black/5 dark:bg-white/10", "hover:bg-black/10 hover:dark:bg-white/15", "transition-colors duration-300 ease-in-out", filter().has(tag) && "text-black dark:text-white")}>
-                    <svg class={cn("size-5 fill-black/50 dark:fill-white/50", "transition-colors duration-300 ease-in-out", filter().has(tag) && "fill-black dark:fill-white")}>
-                      <use href={`/ui.svg#square`} class={cn(!filter().has(tag) ? "block" : "hidden")} />
-                      <use href={`/ui.svg#square-check`} class={cn(filter().has(tag) ? "block" : "hidden")} />
-                    </svg>
-                    {tag}
-                  </button>
-                </li>
-              )}
-            </For>
-          </ul>
-        </div>
+    <div class="flex flex-col gap-4">
+      <div class="flex gap-2 flex-wrap">
+        <input
+          type="text"
+          value={playerName()}
+          onInput={(e) => setPlayerName(e.currentTarget.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              addPlayer()
+            }
+          }}
+          class="bg-gray/5 dark:bg-white/15 border border-black/15 dark:border-white/20 text-black dark:text-white px-3 py-2"
+          placeholder="Player Name"
+        />
+
+        <button
+          class="px-3 py-1 border border-black/25 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/15 blend"
+          onClick={addPlayer}
+        >
+          Add member
+        </button>
+
+        <button
+          class="px-3 py-1 border border-black/25 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/15 blend"
+          onClick={tossCoin}
+          disabled={isTossing()}
+        >
+          {isTossing() ? "Tossing..." : "Toss"}
+        </button>
       </div>
-      <div class="col-span-3 sm:col-span-2">
-        <div class="flex flex-col">
-          <div class="text-sm uppercase mb-2">
-            SHOWING {posts().length} OF {data.length} POSTS
+<Show when={error()}>
+  <p class="text-red-500 text-sm">{error()}</p>
+</Show>
+      <Show when={tossResult()}>
+        <div class="px-3 py-2 rounded border border-black/15 dark:border-white/20 bg-black/5 dark:bg-white/10 w-fit">
+          Toss Result: <span class="font-bold">{tossResult()}</span>
+        </div>
+      </Show>
+
+      <div class="flex flex-wrap gap-2">
+        <For each={players()}>
+          {(player) => (
+            <div class="px-3 py-1 rounded border border-black/15 dark:border-white/20 bg-black/5 dark:bg-white/10">
+              {player}
+            </div>
+          )}
+        </For>
+      </div>
+
+      <button
+        class="px-3 py-1 border border-black/25 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/15 blend w-fit"
+        onClick={generateTeams}
+      >
+        Generate Teams
+      </button>
+
+      <Show when={teamA().length || teamB().length}>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded border border-black/15 dark:border-white/20">
+            <h2 class="font-bold mb-2">Team A</h2>
+
+            <div class="flex flex-col gap-2">
+              <For each={teamA()}>
+                {(player) => <div>{player}</div>}
+              </For>
+            </div>
           </div>
-          <ul class="flex flex-col gap-3">
-            {posts().map((post) => (
-              <li>
-                <ArrowCard entry={post} />
-              </li>
-            ))}
-          </ul>
+
+          <div class="p-4 rounded border border-black/15 dark:border-white/20">
+            <h2 class="font-bold mb-2">Team B</h2>
+
+            <div class="flex flex-col gap-2">
+              <For each={teamB()}>
+                {(player) => <div>{player}</div>}
+              </For>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <Show when={umpire()}>
+          <div class="p-4 rounded border border-black/15 dark:border-white/20">
+            <span class="font-bold">Umpire:</span> {umpire()}
+          </div>
+        </Show>
+      </Show>
     </div>
   )
 }
